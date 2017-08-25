@@ -344,7 +344,7 @@ var selected = new Date().getFullYear();
 			
 			dayClick: function(date, jsEvent, view) {
 				if(showScheduleAdd){
-						addSchedule();
+						addCheckSchedule(date.format("yyyy-MM-dd"));
 						$("#queryStartDate").val(date.format("yyyy-MM-dd"));
 					}
 				},
@@ -406,6 +406,7 @@ var selected = new Date().getFullYear();
 		//alipay查询
 		$('#last').click(
 		function() {
+			$("#btn_imput").addClass("hidden");
 			$("#gmvOrAlipay").text("Alipay Collection");
 			$("#last a").css("background","#428bca");
 			$("#last a").css("color","#fff");
@@ -887,9 +888,12 @@ function dailySummateAddChange() {
 		});
 		if(isInteger){
 			differenc();
-			if(Number($("#differencValue").val())!=0||Number($("#monthTarget").val())<=0){
-				toastr.success("goals need to be equal");
-			}else{
+			if(Number($("#differencValue").val())!=0){
+				toastr.success("oals need to be equal");
+			}else if(Number($("#monthTarget").val())<=0){
+				toastr.success("Goals need to be greater than zero");
+			}
+			else{
 				var url="<%=basePath%>/target/insertOrUpdateDailyTargetByBatch.do";
 				json={"dailyTargets":JSON.stringify(dailyTargets)};
 			 	$.ajax({
@@ -1053,6 +1057,27 @@ function dailySummateAddChange() {
 		 } 
 	  $("#myModal").modal().on("shown.bs.modal", function () {});
   }
+  function addCheckSchedule(date){
+	 	 $("#schedoleDesc").val("");
+		 $("#title").val("");
+		 $("#queryStartDate").val(""); 
+		 $("#schedoleId").val("");
+		 if(date!=null){
+	  		$.ajax({
+	       url: "<%=basePath%>dailySchedule/queryDailySchedule.do",
+	       type : "POST",
+	       dataType: 'JSON',
+	       data: {startDate:date},
+	       success: function(doc) {
+	     	  $("#schedoleId").val(doc.data[0].id);
+	     	  $("#schedoleDesc").val(doc.data[0].scheduleDesc);
+				 $("#title").val(doc.data[0].title);
+				 $("#queryStartDate").val(doc.data[0].startDate);
+	       	}
+   		});
+		 } 
+	  $("#myModal").modal().on("shown.bs.modal", function () {});
+}
 //保存便签
   function saveSchedule(){
 	  $.ajax({

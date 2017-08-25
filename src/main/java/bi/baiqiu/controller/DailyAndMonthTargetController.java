@@ -2,6 +2,7 @@ package bi.baiqiu.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +39,8 @@ import bi.baiqiu.service.impl.RedisServiceImpl;
 import bi.baiqiu.utils.DateUtils;
 import bi.baiqiu.utils.ExportExcelUtils;
 import bi.baiqiu.utils.ImportExcelUtils;
+import bi.baiqiu.utils.UtilTool;
+
 import com.google.common.reflect.TypeToken;
 
 @Controller
@@ -130,7 +133,7 @@ public class DailyAndMonthTargetController extends BaseController {
 
 	/**
 	 * 插入多条日计划把日期作为唯一索引，错误则提示
-	 *              
+	 * 
 	 * @param dailyTarget
 	 * @param request
 	 * @param response
@@ -245,19 +248,29 @@ public class DailyAndMonthTargetController extends BaseController {
 			in = file.getInputStream();
 			listob = new ImportExcelUtils().getBankListByExcel(in, file.getOriginalFilename());
 			dailyTargets = new ArrayList<DailyTarget>();
+			String formatmsg = erroyFormate;
 			for (int i = 0; i < listob.size(); i++) {
 				DailyTarget dailyTarget = new DailyTarget();
 				List<Object> lo = listob.get(i);
-				if (lo.size() > 0 && DateUtils.isDateType(String.valueOf(lo.get(0)))) {
-					dailyTarget.setDate(String.valueOf(lo.get(0)));// 日期
-					String payment=lo.get(1).toString();
-					dailyTarget.setPayment(String.valueOf(payment).substring(0, payment.indexOf("."))+"00");// 计划量
-					dailyTarget.setShopId(user.getShopId());
-					dailyTargets.add(dailyTarget);
+				try {
+					if (lo.size() > 0 && DateUtils.isDateType(String.valueOf(lo.get(0)))) {
+						dailyTarget.setDate(String.valueOf(lo.get(0)));// 日期
+						String payment=lo.get(1).toString();
+						dailyTarget.setPayment(UtilTool.convertToBigInteger(payment).add(new BigInteger("100")));// 计划量
+						dailyTarget.setShopId(user.getShopId());
+						dailyTargets.add(dailyTarget);
+					}
+				} catch (Exception e) {
+					formatmsg = formatmsg + " " + String.valueOf(lo.get(0));
+					e.printStackTrace();
 				}
 			}
-			if (dailyTargets.size() > 0)
-				WriteObject(response, dailyTargetService.insertDailyTargetByBatch(dailyTargets,user));
+			if (dailyTargets.size() > 0){
+				if (formatmsg.length() == erroyFormate.length()) {
+					formatmsg="";
+				}
+				WriteObject(response, dailyTargetService.insertDailyTargetByBatch(dailyTargets,user)+formatmsg);
+			}
 			else{
 				WriteObject(response, noData);
 				return;

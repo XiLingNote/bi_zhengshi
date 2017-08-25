@@ -1,5 +1,6 @@
 package bi.baiqiu.pojo;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -17,7 +18,7 @@ public class DailyTarget {
 	@Id
 	private Integer id;
 	private String date;
-	private String payment;
+	private BigInteger payment;
 	private Integer shopId;
 	@Transient
 	private String startDate;
@@ -44,10 +45,10 @@ public class DailyTarget {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getPayment() {
+	public BigInteger getPayment() {
 		return payment;
 	}
-	public void setPayment(String payment) {
+	public void setPayment(BigInteger payment) {
 		this.payment = payment;
 	}
 	public String getStartDate() {

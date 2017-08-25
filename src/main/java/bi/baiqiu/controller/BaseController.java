@@ -21,8 +21,10 @@ public class BaseController {
 	public final static String commintSuccess=saveSuccess+"save rows: ";
 	
 	public final static String commintErroy=savesErroy+" data before ";
+	
+	public final static String erroyFormate = "save failed Date：";
 
-	public final static String noDeleteHistoryAuthority = "no Delete History Authority";
+	public final static String noDeleteHistoryAuthority = "No Change History Authority";
 	
 	public final static String noUpdateHistoryAuthority = "Save successful,Historical data is not covered";
 

@@ -1,6 +1,6 @@
 package bi.baiqiu.utils;
-
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import com.alibaba.druid.util.StringUtils;
 
@@ -26,6 +26,34 @@ public class UtilTool {
 			return "0";
 		}else{
 			return change;
+		}
+	}
+	/**字符串转为Integer 舍去小数位
+	 * @param a
+	 * @return
+	 */
+	public static Integer convertToInteger(String a)throws Exception{
+		if(a.length()>1){
+			return Integer.valueOf(a.substring(0,a.lastIndexOf('.')));
+		}else if(a.length()<1){
+			return 0;
+		}
+		else{
+			return Integer.valueOf(a);
+		}
+	}
+	/**字符串转为BigInteger 舍去小数位
+	 * @param a
+	 * @return
+	 */
+	public static BigInteger convertToBigInteger(String a)throws Exception{
+		if(a.length()>1){
+			return new BigInteger(a.substring(0,a.lastIndexOf('.')));
+		}else if(a.length()<1){
+			return new BigInteger("0");
+		}
+		else{
+			return new BigInteger(a);
 		}
 	}
 }

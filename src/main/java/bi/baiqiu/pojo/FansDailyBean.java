@@ -17,12 +17,12 @@ public class FansDailyBean implements java.io.Serializable {
 	@Id
 	private Integer id;
 	private String date;
-	private String fansTotal;
-	private String newFans;
-	private String newMembership;
-	private String activeFans;
-	private String fansTurnover;
-	private String cancelFans;
+	private Integer fansTotal;
+	private Integer newFans;
+	private Integer newMembership;
+	private Integer activeFans;
+	private Integer fansTurnover;
+	private Integer cancelFans;
 	private Integer shopId;
 	private String createTime;
 	private String remark;
@@ -49,8 +49,8 @@ public class FansDailyBean implements java.io.Serializable {
 	public Integer getId() {
 		return this.id;
 	}
-public FansDailyBean(String date, String fansTotal, String newFans, String newMembership, String activeFans,
-			String fansTurnover, String cancelFans, Integer shopId) {
+public FansDailyBean(String date, Integer fansTotal, Integer newFans, Integer newMembership, Integer activeFans,
+		Integer fansTurnover, Integer cancelFans, Integer shopId) {
 		super();
 		this.date = date;
 		this.fansTotal = fansTotal;
@@ -68,60 +68,73 @@ public FansDailyBean(String date, String fansTotal, String newFans, String newMe
 	}
 
 	public String getDate() {
-		return this.date;
+		return date;
 	}
 
 	public void setDate(String date) {
 		this.date = date;
 	}
 
-	public String getFansTotal() {
-		return this.fansTotal;
+
+	public Integer getFansTotal() {
+		return fansTotal;
 	}
 
-	public void setFansTotal(String fansTotal) {
+
+	public void setFansTotal(Integer fansTotal) {
 		this.fansTotal = fansTotal;
 	}
 
-	public String getNewFans() {
-		return this.newFans;
+
+	public Integer getNewFans() {
+		return newFans;
 	}
 
-	public void setNewFans(String newFans) {
+
+	public void setNewFans(Integer newFans) {
 		this.newFans = newFans;
 	}
 
-	public String getNewMembership() {
-		return this.newMembership;
+
+	public Integer getNewMembership() {
+		return newMembership;
 	}
 
-	public void setNewMembership(String newMembership) {
+
+	public void setNewMembership(Integer newMembership) {
 		this.newMembership = newMembership;
 	}
 
-	public String getActiveFans() {
-		return this.activeFans;
+
+	public Integer getActiveFans() {
+		return activeFans;
 	}
 
-	public void setActiveFans(String activeFans) {
+
+	public void setActiveFans(Integer activeFans) {
 		this.activeFans = activeFans;
 	}
 
-	public String getFansTurnover() {
-		return this.fansTurnover;
+
+	public Integer getFansTurnover() {
+		return fansTurnover;
 	}
 
-	public void setFansTurnover(String fansTurnover) {
+
+	public void setFansTurnover(Integer fansTurnover) {
 		this.fansTurnover = fansTurnover;
 	}
 
-	public String getCancelFans() {
-		return this.cancelFans;
+
+	public Integer getCancelFans() {
+		return cancelFans;
 	}
 
-	public void setCancelFans(String cancelFans) {
+
+	public void setCancelFans(Integer cancelFans) {
 		this.cancelFans = cancelFans;
 	}
+
 
 	public Integer getShopId() {
 		return this.shopId;

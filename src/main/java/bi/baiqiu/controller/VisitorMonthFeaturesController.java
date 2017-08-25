@@ -139,7 +139,7 @@ public class VisitorMonthFeaturesController extends BaseController {
 				List<Object> lo = listob.get(i);
 				if (lo.size() > 0 && DateUtils.isDateType(String.valueOf(lo.get(0)))) {
 					VisitorMonthFeaturesBean VisitorMonthFeaturesBean = new VisitorMonthFeaturesBean(
-							String.valueOf(lo.get(0)), String.valueOf(lo.get(1)), String.valueOf(lo.get(2)),
+							DateUtils.stringToMontYear(String.valueOf(lo.get(0))), String.valueOf(lo.get(1)), String.valueOf(lo.get(2)),
 							Float.valueOf((lo.get(3) == null || lo.get(3).equals("")) ? 0.0 + ""
 									: String.valueOf(lo.get(3))),
 							user.getShopId());
@@ -154,7 +154,7 @@ public class VisitorMonthFeaturesController extends BaseController {
 				WriteObject(response, visitorMonthFeatureServiceImpl.insertByBatchLarge(visitorMonthFeatures));
 			}
 			else{
-				WriteObject(response, noData+msg);
+				WriteObject(response, noData+" "+msg);
 			return;
 			}
 		} catch (Exception e) {

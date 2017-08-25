@@ -1,16 +1,15 @@
 package bi.baiqiu.pojo.test;
 
-import com.taobao.api.domain.Trade;
 
 public class TradeFullinfoGetResponse {
 	
-	private Trade22 trade;
+	private TradeTemplate trade;
 
-	public Trade22 getTrade() {
+	public TradeTemplate getTrade() {
 		return trade;
 	}
 
-	public void setTrade(Trade22 trade) {
+	public void setTrade(TradeTemplate trade) {
 		this.trade = trade;
 	}
 

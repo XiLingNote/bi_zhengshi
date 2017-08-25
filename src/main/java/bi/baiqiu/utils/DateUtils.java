@@ -196,9 +196,10 @@ public class DateUtils {
 	 * @throws ParseException
 	 */
 	public static boolean compareMonthsAgo(String date) throws ParseException {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(new Date());// 设置当前日期
-		calendar.add(Calendar.MONTH, -2);// 月份减一
+		calendar.setTime(new Date());
+		calendar.add(Calendar.MONTH, -1);// 月份减一
+		calendar.set(calendar.DATE, 1);
+		calendar.add(Calendar.DATE, -1);// 日期减一
 		if (calendar.getTime().getTime() > YMDSin1.parse(date).getTime()) {
 			return true;
 		} else {
@@ -227,5 +228,38 @@ public class DateUtils {
 				}
 			}
 		}
+	}
+
+	/**
+	 * 日期转换为字符串yyyyMMddHHmmss
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static String dateToString(Date date) {
+		return yyyyMMddHHmmss.format(date);
+	}
+	/**
+	 * 返回字符串的当月一号
+	 * @param date
+	 * @return
+	 */
+	public static String stringToMontYear(String date) {
+		calendar.setTime(stringToDate(date));
+		calendar.set(calendar.DATE, 1);
+		return YMDSin1.format(calendar.getTime());
+	}
+	/**字符串当前日期加day
+	 * @param date
+	 * @param day
+	 * @return
+	 */
+	public static String stringDateAddDay(String date,int day){
+		calendar.setTime(stringToDate(date));
+		calendar.add(calendar.DATE, day);
+		return YMDSin1.format(calendar.getTime());
+	}
+	public static void main(String[] args) {
+		System.out.println(stringDateAddDay("2017-01-01", 60));
 	}
 }

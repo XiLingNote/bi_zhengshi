@@ -285,5 +285,5 @@ public class GoalMonthsale implements Serializable {
 		sb.append(", serialVersionUID=").append(serialVersionUID);
 		sb.append("]");
 		return sb.toString();
-	}	
+	}
 }

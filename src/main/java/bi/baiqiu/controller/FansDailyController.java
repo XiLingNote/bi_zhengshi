@@ -24,6 +24,7 @@ import bi.baiqiu.pojo.User;
 import bi.baiqiu.service.impl.FansDailyServiceImpl;
 import bi.baiqiu.utils.DateUtils;
 import bi.baiqiu.utils.ImportExcelUtils;
+import bi.baiqiu.utils.UtilTool;
 
 /**
  * 粉丝日报
@@ -134,25 +135,45 @@ public class FansDailyController extends BaseController {
 			listob = new ImportExcelUtils().getBankListByExcel(in, file.getOriginalFilename());
 			fansDailys = new ArrayList<FansDailyBean>();
 			String msg = "";
+			String formatmsg = erroyFormate;
 			for (int i = 0; i < listob.size(); i++) {
 				List<Object> lo = listob.get(i);
 				if (lo.size() > 0 && DateUtils.isDateType(String.valueOf(lo.get(0)))) {
-					FansDailyBean fansDailyBean = new FansDailyBean(String.valueOf(lo.get(0)),
-							String.valueOf(lo.get(1)), String.valueOf(lo.get(2)), String.valueOf(lo.get(3)),
-							String.valueOf(lo.get(4)), String.valueOf(lo.get(5)), String.valueOf(lo.get(6)),
-							user.getShopId());
-					if (!user.isHasDeleteHistoryAuthority() && DateUtils.compareMonthsAgo(String.valueOf(lo.get(0)))) {
-						msg = noDeleteHistoryAuthority;
-					} else {
-						fansDailys.add(fansDailyBean);
+					try {
+						Integer i1=UtilTool.convertToInteger(String.valueOf(lo.get(1)));
+						Integer i2=UtilTool.convertToInteger(String.valueOf(lo.get(2)));
+						Integer i3=UtilTool.convertToInteger(String.valueOf(lo.get(3)));
+						Integer i4=UtilTool.convertToInteger(String.valueOf(lo.get(4)));
+						Integer i5=UtilTool.convertToInteger(String.valueOf(lo.get(5)));
+						FansDailyBean fansDailyBean = new FansDailyBean(String.valueOf(lo.get(0)),
+								i1,
+								i2,
+								i3,
+								i4,
+								i5,
+								UtilTool.convertToInteger(String.valueOf(lo.get(6))), user.getShopId());
+						if (!user.isHasDeleteHistoryAuthority()
+								&& DateUtils.compareMonthsAgo(String.valueOf(lo.get(0)))) {
+							msg = noDeleteHistoryAuthority;
+						} else {
+							fansDailys.add(fansDailyBean);
+						}
+					} catch (Exception e) {
+						formatmsg = formatmsg + " " + String.valueOf(lo.get(0));
+						e.printStackTrace();
 					}
 				}
 
 			}
-			if (fansDailys.size() > 0)
-				WriteObject(response, fansDailyServiceImpl.insertByBatchLarge(fansDailys));
+
+			if (fansDailys.size() > 0) {
+				if (formatmsg.length() != erroyFormate.length()) {
+					msg=formatmsg;
+				}
+				WriteObject(response, fansDailyServiceImpl.insertByBatchLarge(fansDailys) + msg);
+			}
 			else {
-				WriteObject(response, noData+msg);
+				WriteObject(response, noData + msg);
 				return;
 			}
 		} catch (Exception e) {

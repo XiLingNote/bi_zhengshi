@@ -188,7 +188,7 @@
         	initDate();
         	//初始化增删查改
         	operate.operateInit();
-        	//初始化上传文件
+        	//初始化上传文件 
              inportInit("txt_file", "target/uploadDailyTarget.do");
 		
         	initSelect();
@@ -321,7 +321,7 @@
 			todayBtn : 1,
 			autoclose : 1,
 			todayHighlight : 1,
-			startView : 3,
+			startView : 2,
 			minView :3,
 			format : 'yyyy-mm-dd',
 			forceParse : 0,

@@ -14,6 +14,7 @@
 <script src="/js/highcharts.js"></script>
 <script src="/js/scientific.js"></script>
 <script src="/js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/bootstrap/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="/js/bootstrap/bootstrap-datetimepicker.js"></script>
 <script src="/js/Highchartstheme.js"></script>
 <script src="/js/page/index.js"></script>

@@ -49,11 +49,15 @@ public class DailyScheduleServiceImpl {
 	 */
 	public List<DailyScheduleBean> queryDailyschedule(DailyScheduleBean bean) throws Exception {
 		Example ex = new Example(DailyScheduleBean.class);
-		if(bean.getStartDate()!=null)
-		ex.createCriteria().andBetween("startDate", bean.getStartDate(), bean.getEndDate()).andEqualTo("shopId",
-				bean.getShopId());
-		else{
-			ex.createCriteria().andEqualTo("id",bean.getId());
+		if (bean.getStartDate() != null)
+			if (bean.getEndDate() != null) {
+				ex.createCriteria().andBetween("startDate", bean.getStartDate(), bean.getEndDate()).andEqualTo("shopId",
+						bean.getShopId());
+			} else {
+				ex.createCriteria().andEqualTo("startDate", bean.getStartDate()).andEqualTo("shopId", bean.getShopId());
+			}
+		else {
+			ex.createCriteria().andEqualTo("id", bean.getId());
 		}
 		return dailyScheduleDao.selectByExample(ex);
 	}

@@ -138,7 +138,7 @@ public class FansMonthFeaturesController extends BaseController {
 			for (int i = 0; i < listob.size(); i++) {
 				List<Object> lo = listob.get(i);
 				if (lo.size() > 0 && DateUtils.isDateType(String.valueOf(lo.get(0)))) {
-					FansMonthFeaturesBean FansMonthFeaturesBean = new FansMonthFeaturesBean(String.valueOf(lo.get(0)),
+					FansMonthFeaturesBean FansMonthFeaturesBean = new FansMonthFeaturesBean(DateUtils.stringToMontYear(String.valueOf(lo.get(0))),
 							String.valueOf(lo.get(1)), String.valueOf(lo.get(2)),
 							Float.valueOf((lo.get(3) == null || lo.get(3).equals("")) ? 0.0 + ""
 									: String.valueOf(lo.get(3))),
@@ -153,7 +153,7 @@ public class FansMonthFeaturesController extends BaseController {
 			if (fansMonthFeatures.size() > 0)
 				WriteObject(response,fansMonthFeatureServiceImpl.insertByBatchLarge(fansMonthFeatures));
 			else
-				WriteObject(response, noData+msg);
+				WriteObject(response, noData+" "+msg);
 
 		} catch (Exception e) {
 			WriteObject(response, savesErroy);

@@ -15,10 +15,9 @@
 					width : 50,
 					align : 'center',
 					valign : 'middle',
-					
 					formatter : function(value, row, index) {
 						var nowdate=new Date();
-						nowdate.setMonth(nowdate.getMonth()-2);
+						nowdate.setMonth(nowdate.getMonth()-1,0);
 						if(new Date(row.date)<nowdate&&!role){
 						        return {
 						            disabled : true
@@ -75,7 +74,19 @@
 							}
 
 						});
-					}else if (jsonData[a].formatter == "integerAndPercent") {
+					}else if (jsonData[a].formatter == "month") {
+						arr.push({
+							title : jsonData[a].title,
+							field : jsonData[a].field,
+							width : jsonData[a].width,
+							sortable : true,
+							formatter : function(value, row, index) {
+								return getMonthYear(new Date(value));
+							}
+
+						});
+					}
+					else if (jsonData[a].formatter == "integerAndPercent") {
 						arr.push({
 							title : jsonData[a].title,
 							field : jsonData[a].field,
@@ -171,4 +182,20 @@
 			}
 		}
 		return format;
+	}
+	function getMonthYear(date){
+		var month=new Array(12)
+		month[0]="Jan"
+		month[1]="Feb"
+		month[2]="Mar"
+		month[3]="Apr"
+		month[4]="May"
+		month[5]="Jun"
+		month[6]="Jul"
+		month[7]="Aug"
+		month[8]="Sep"
+		month[9]="Oct"
+		month[10]="Nov"
+		month[11]="Dec"
+	return month[date.getUTCMonth()]+"-"+date.getFullYear();
 	}

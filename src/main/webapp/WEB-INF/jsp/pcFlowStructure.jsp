@@ -20,10 +20,12 @@
 
 <link href="<%=basePath%>/css/bootstrap/bootstrap-table.css"
 	rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="<%=basePath%>/css/bootstrap/bootstrap.css">
+
+	
 <link rel="stylesheet"href="<%=basePath%>/css/bootstrap/bootstrap-datetimepicker.min.css">
 
 <jsp:include page="/page/left.do"></jsp:include>
-<link rel="stylesheet" href="<%=basePath%>/css/bootstrap/bootstrap.min.css">
 		<link rel="stylesheet" href="<%=basePath%>/css/bi.css">
 	<link rel="stylesheet" href="<%=basePath%>/css/localRightTable.css">
 	
@@ -50,9 +52,6 @@
 				
 			</div>
 			<div class="btn-group" >
-						<button type="button" class="deleteBtn btn btn-primary" onclick="getThread()">
-							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>TestGetDate
-						</button>
 						<button id="query" type="button" class="queryBtn btn btn-primary">
 							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>Search
 						</button>
@@ -452,13 +451,5 @@
 				});
 
 	}
-     function  getThread(){
-    	 $.ajax({
-             url:"<%=basePath%>pcFlowStructure/test.do",
-					success : function(data, status) {
-					}
-				}); 
-    	 
-     }
 </script>
 </html>
